@@ -21,7 +21,7 @@ const Profile = () => {
   return (
     <div className='container' style={{display:'flex'}}>
       <div className='right' style={{flex:1}}>
-        <h5>File Name :{filename}</h5>
+        <h5>{filename=="" ? "": <>File Name :{filename}</>  }</h5>
         {labels.length===0 ? "": "Labels"}
         <table>
           <tr>
@@ -43,7 +43,7 @@ const Profile = () => {
       </div>
     <div className='left' style={{flex:1}}>
       <h2 className="mb-5 text-center">
-        React Photo Capture using Webcam Examle
+        
       </h2>
       <div>
         {picture == '' ? (
