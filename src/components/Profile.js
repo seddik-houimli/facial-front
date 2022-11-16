@@ -82,7 +82,7 @@ const Profile = () => {
                 "data":picture.replace("data:image/jpeg;base64,","")
               }
               ))
-              fetch(`http://localhost:7071/api/CreateExpenses`, {
+              fetch(`https://facialwebapp.azurewebsites.net/api/GetProbs?`, {
                                 method: "POST",
                                 headers: {
                                     'Content-Type':'application/json',
