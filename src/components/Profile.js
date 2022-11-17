@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Webcam from 'react-webcam'
 import axios from 'axios';
+import ImageDisplay from './ImageDisplay';
 const WebcamComponent = () => <Webcam />
 const videoConstraints = {
   width: 400,
@@ -9,6 +10,7 @@ const videoConstraints = {
 }
 const Profile = () => {
   const [picture, setPicture] = useState('')
+  const [PictureFormat, setPictureFormat]=useState('')
   const [filename, setFileName]= useState('')
   const [probs, setProbs]= useState([])
   const [labels, setLabels] =useState([])
@@ -24,21 +26,29 @@ const Profile = () => {
         <h5>{filename=="" ? "": <>File Name :{filename}</>  }</h5>
         {labels.length===0 ? "": "Labels"}
         <table>
+          <thead></thead>
+          <tbody>
           <tr>
         {labels.map((e,index)=>
           
-            <th index={index}>{e}</th>
+            <th key={index}>{e}</th>
             
            )}
            </tr>
+           </tbody>
+           <tfoot></tfoot>
           </table>
         {probs.length===0 ? "": "Probs"}
         <table>
+        <thead></thead>
+          <tbody>
           <tr>
         {probs.map((e,index)=>
-        <th index={index}>{e}</th>
+        <th key={index}>{e}</th>
         )}
         </tr>
+        </tbody>
+        <tfoot></tfoot>
           </table>
       </div>
     <div className='left' style={{flex:1}}>
@@ -59,9 +69,21 @@ const Profile = () => {
           />
           </>
         ) : (
-          <img src={picture} />
+          <>
+          <ImageDisplay 
+          picture={picture} 
+          setPictureFormatted={setPictureFormat} 
+          setFileName={setFileName}
+          setLabels={setLabels}
+          setProbs={setProbs}
+          />
+          </>
         )}
       </div>
+
+
+
+
       <div>
         {picture != '' ? (
             <>
@@ -73,40 +95,6 @@ const Profile = () => {
             className="btn btn-primary"
           >
             Retake
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              
-              console.log(JSON.stringify({
-                "data":picture.replace("data:image/jpeg;base64,","")
-              }
-              ))
-              fetch(`https://facialwebapp.azurewebsites.net/api/GetProbs?`, {
-                                method: "POST",
-                                headers: {
-                                    'Content-Type':'application/json',
-                                     'Authorization':('Bearer '+'ER4s9bS3T2p80Vws16Eg7jI3kU2CBSqU'),
-                                      'azureml-model-deployment': 'default',
-                                      'Access-Control-Allow-Origin': '*'
-                                 },
-                                body: JSON.stringify({
-                                  "data":picture.replace("data:image/jpeg;base64,","")
-                                }
-                                )
-                            })
-                                .then(resp => resp.json()).then(resp=>{
-                                  console.log(resp[0])
-                                  setFileName(resp[0].filename)
-                                  setProbs(resp[0].probs)
-                                  setLabels(resp[0].labels)
-                                }).catch((error)=>console.log(error))
-                                
-                                console.log()
-            }}
-            className="btn btn-primary"
-          >
-            Results
           </button>
             </>
         ) : (
