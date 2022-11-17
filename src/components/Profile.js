@@ -31,7 +31,7 @@ const Profile = () => {
           <tr>
         {labels.map((e,index)=>
           
-            <th key={index}>{e}</th>
+            <th key={index}>{e==1 ? "Happy" : e==2 ? "Sad" : e==3 ? "Surprise" : "Angry"}</th>
             
            )}
            </tr>
