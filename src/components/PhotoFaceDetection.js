@@ -4,13 +4,25 @@ import CircularProgress from '@mui/material/CircularProgress';
 import "../styles.css";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-const PhotoFaceDetection = ({Img,setFileName,setLabels,setProbs}) => {
+
+
+
+const PhotoFaceDetection = ({setOpen,Img,setFileName,setLabels,setProbs}) => {
+  
+  const [inputArray, setInputArray] = useState(null);
   const [initializing, setInitializing] = useState(false);
   const [image, setImage] = useState(Img);
   const canvasRef = useRef();
   const imageRef = useRef();
   const [bwImageBase64, setBwImageBase64] = useState(null);
  
+  async function handlePreprocessImage(inputImage) {
+    // Load the image
+    
+    setInputArray("processedArray");
+  }
+
+
 
   function getBlackAndWhiteImage(imageBase64) {
     return new Promise((resolve, reject) => {
@@ -160,7 +172,20 @@ const PhotoFaceDetection = ({Img,setFileName,setLabels,setProbs}) => {
       <Button
       style={{margin:'10px'}}
             onClick={(e) => {
+              console.log( pic)
               e.preventDefault()
+             /* getBlackAndWhiteImage(pic)
+      .then(bwImage => {
+        setBwImageBase64(bwImage);
+        console.log(bwImage)
+      })
+      .catch(error => {
+        console.error(error);
+      });*/
+     console.log(pic)
+     setOpen(true)
+
+
               //console.log(pic)
              // console.log(JSON.stringify({"data":pic.replace("data:image/png;base64,","")}))            
             }}

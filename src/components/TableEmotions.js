@@ -9,16 +9,17 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 
-function TableEmotions({filename,labels,probs}) {
+function TableEmotions({open,filename,labels,probs}) {
   return (
     <div style={{marginTop:'35px' ,color:'blue'}}>
+      {open ? 
       <TableContainer >
       <Table sx={{ minWidth: 500 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-          {[1,2,3,7].map((e,index)=>
+          {[1,2,3,4,5,6,7].map((e,index)=>
           
-          <TableCell key={index} align="center"> {e==1 ? "Happy" : e==2 ? "Sad" : e==3 ? "Surprise" : "Angry"}</TableCell>
+          <TableCell key={index} align="center"> {e==1 ? "Neutral" : e==2 ? "Happiness" : e==3 ? "Sadness" : e==4 ? "Surprise": e==5 ? "Disgust": e==6 ? "Fear" : e==7 ? "Anger":"Contempt"}</TableCell>
           
          )}
           </TableRow>
@@ -26,14 +27,16 @@ function TableEmotions({filename,labels,probs}) {
         <TableBody>
         <TableRow>
           
-        {[99,78,88,65].map((e,index)=>
+        {[Math.floor(Math.random()*100),Math.floor(Math.random()*100),Math.floor(Math.random()*100),Math.floor(Math.random()*100),Math.floor(Math.random()*100),Math.floor(Math.random()*100),Math.floor(Math.random()*100)].map((e,index)=>
         <TableCell align="center" key={index}>{e}</TableCell>
         )}
 </TableRow>
           
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer> 
+    :<>
+    </>}
     </div>
   )
 }

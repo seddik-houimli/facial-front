@@ -11,6 +11,7 @@ const videoConstraints = {
   facingMode: 'user',
 }
 const Profile = () => {
+  const [open,setOpen]= useState(false)
   const [picture, setPicture] = useState('')
   const [PictureFormat, setPictureFormat]=useState('')
   const [filename, setFileName]= useState('')
@@ -27,7 +28,7 @@ const Profile = () => {
     <div className='container' style={{display:'flex'}}>
       <div className='right' style={{flex:1}}>
         <p>
-          This work has been done during the bachelor thesis of Seddik Houimli about benchmarking of different AutoMLs for the problem of facial emotions regocnition.
+          This work has been done during the bachelor thesis of Seddik Houimli about benchmarking of different AutoMLs for the problem of facial emotions recognition.
 
 To use the tool take an image of your face and click on submit and in few seconds you will get the result.<br/> The model used is the model implemented with Azure AutoML platform and consists of 8 emotions: Neutral, Happiness, Sadness, Surprise, Fear, Disgust, Anger, Contempt.
 
@@ -41,6 +42,7 @@ Disclaimer: The tool does not save any data (images, IP addresses, or locations)
         filename={filename}
         labels={labels}
         probs={probs}
+        open={open}
         />
         
       </div>
@@ -67,6 +69,7 @@ Disclaimer: The tool does not save any data (images, IP addresses, or locations)
           setFileName={setFileName}
           setLabels={setLabels}
           setProbs={setProbs}
+          setOpen={setOpen}
           />
           </>
         )}
@@ -83,6 +86,7 @@ Disclaimer: The tool does not save any data (images, IP addresses, or locations)
             onClick={(e) => {
               e.preventDefault()
               setPicture("")
+              setOpen(false)
             }}
             variant='outlined'
           >
