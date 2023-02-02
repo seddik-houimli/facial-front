@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Webcam from 'react-webcam'
 import axios from 'axios';
 import ImageDisplay from './ImageDisplay';
+import TableEmotions from './TableEmotions';
+import Button from '@mui/material/Button';
 const WebcamComponent = () => <Webcam />
 const videoConstraints = {
   width: 400,
@@ -20,41 +22,30 @@ const Profile = () => {
     
     setPicture(pictureSrc)
   })
-  return (
+  return (<>
+  <div className='App-header'><h1>Facial emotions recognition tool</h1></div>
     <div className='container' style={{display:'flex'}}>
       <div className='right' style={{flex:1}}>
-        <h5>{filename=="" ? "": <>File Name :{filename}</>  }</h5>
-        {labels.length===0 ? "": "Labels"}
-        <table>
-          <thead></thead>
-          <tbody>
-          <tr>
-        {labels.map((e,index)=>
-          
-            <th key={index}>{e==1 ? "Happy" : e==2 ? "Sad" : e==3 ? "Surprise" : "Angry"}</th>
-            
-           )}
-           </tr>
-           </tbody>
-           <tfoot></tfoot>
-          </table>
-        {probs.length===0 ? "": "Probs"}
-        <table>
-        <thead></thead>
-          <tbody>
-          <tr>
-        {probs.map((e,index)=>
-        <th key={index}>{e}</th>
-        )}
-        </tr>
-        </tbody>
-        <tfoot></tfoot>
-          </table>
+        <p>
+          This work has been done during the bachelor thesis of Seddik Houimli about benchmarking of different AutoMLs for the problem of facial emotions regocnition.
+
+To use the tool take an image of your face and click on submit and in few seconds you will get the result.<br/> The model used is the model implemented with Azure AutoML platform and consists of 8 emotions: Neutral, Happiness, Sadness, Surprise, Fear, Disgust, Anger, Contempt.
+
+The result is the percentage that the model predicts the face to be in each emotion.
+        </p>
+      
+        <span>
+Disclaimer: The tool does not save any data (images, IP addresses, or locations) about the users.
+</span>
+        <TableEmotions
+        filename={filename}
+        labels={labels}
+        probs={probs}
+        />
+        
       </div>
     <div className='left' style={{flex:1}}>
-      <h2 className="mb-5 text-center">
-        
-      </h2>
+      
       <div>
         {picture == '' ? (
             <>
@@ -87,31 +78,35 @@ const Profile = () => {
       <div>
         {picture != '' ? (
             <>
-          <button
+          <Button
+          style={{margin:'10px'}}
             onClick={(e) => {
               e.preventDefault()
               setPicture("")
             }}
-            className="btn btn-primary"
+            variant='outlined'
           >
             Retake
-          </button>
+          </Button>
             </>
         ) : (
-          <button
+          <Button
+          style={{margin:'10px'}}
+          variant='outlined'
             onClick={(e) => {
               e.preventDefault()
               capture()
               console.log(picture)
             }}
-            className="btn btn-danger"
+            
           >
             Capture
-          </button>
+          </Button>
         )}
       </div>
     </div>
     </div>
+    </>
   )
 }
 export default Profile
