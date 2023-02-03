@@ -11,6 +11,7 @@ const videoConstraints = {
   facingMode: 'user',
 }
 const Profile = () => {
+  const [loading,setLoading]=useState(false);
   const [open,setOpen]= useState(false)
   const [picture, setPicture] = useState('')
   const [PictureFormat, setPictureFormat]=useState('')
@@ -43,6 +44,7 @@ Disclaimer: The tool does not save any data (images, IP addresses, or locations)
         labels={labels}
         probs={probs}
         open={open}
+        loading={loading}
         />
         
       </div>
@@ -51,7 +53,7 @@ Disclaimer: The tool does not save any data (images, IP addresses, or locations)
       <div>
         {picture == '' ? (
             <>
-            
+            <div className="display-flex justify-content-center">
           <Webcam
             audio={false}
             height={400}
@@ -60,6 +62,7 @@ Disclaimer: The tool does not save any data (images, IP addresses, or locations)
             screenshotFormat="image/jpeg"
             videoConstraints={videoConstraints}
           />
+          </div>
           </>
         ) : (
           <>
@@ -70,6 +73,7 @@ Disclaimer: The tool does not save any data (images, IP addresses, or locations)
           setLabels={setLabels}
           setProbs={setProbs}
           setOpen={setOpen}
+          setLoading={setLoading}
           />
           </>
         )}
@@ -87,6 +91,7 @@ Disclaimer: The tool does not save any data (images, IP addresses, or locations)
               e.preventDefault()
               setPicture("")
               setOpen(false)
+              setLoading(false)
             }}
             variant='outlined'
           >

@@ -7,8 +7,7 @@ import Button from '@mui/material/Button';
 
 
 
-const PhotoFaceDetection = ({setOpen,Img,setFileName,setLabels,setProbs}) => {
-  
+const PhotoFaceDetection = ({setLoading,setOpen,Img,setFileName,setLabels,setProbs}) => {
   const [inputArray, setInputArray] = useState(null);
   const [initializing, setInitializing] = useState(false);
   const [image, setImage] = useState(Img);
@@ -172,7 +171,7 @@ const PhotoFaceDetection = ({setOpen,Img,setFileName,setLabels,setProbs}) => {
       <Button
       style={{margin:'10px'}}
             onClick={(e) => {
-              console.log( pic)
+              
               e.preventDefault()
              /* getBlackAndWhiteImage(pic)
       .then(bwImage => {
@@ -182,9 +181,44 @@ const PhotoFaceDetection = ({setOpen,Img,setFileName,setLabels,setProbs}) => {
       .catch(error => {
         console.error(error);
       });*/
-     console.log(pic)
-     setOpen(true)
+      if(pic==="")return;
+    
+      const convertBase64ToBinary = (pic) => {
+        const binaryImage = new Uint8Array(atob(pic).split('').map(char => char.charCodeAt(0)));
+        const binaryString = String.fromCharCode.apply(null, binaryImage);
+        return btoa(binaryString);
+      };
+      
+      
+      const binaryImage = convertBase64ToBinary(pic.split(",")[1]);
+      console.log(binaryImage);
+      console.log("now old format ")
+      console.log(pic)
+      setLoading(true);
+     
+      const options = {
+        method: 'POST',
+        headers: {
+        'content-type': 'application/json',
+        'X-RapidAPI-Key': 'afde77b6efmsh5f31742ca1faad0p1eede6jsn0a46bf738e5a',
+        'X-RapidAPI-Host': 'hydra-ai.p.rapidapi.com'
+      },
+      body: `{"image":"${binaryImage}"}`
+    };
+    
+    fetch('https://hydra-ai.p.rapidapi.com/dev/faces/analyse/', options)
+      .then(response => response.json())
+      .then(response =>{
+         console.log(response.body.detected_faces[0].info.emotions)
+         setFileName(response.body.detected_faces[0].info.emotions)
+        }).then(response=>{
+        setOpen(true)
+        setLoading(false);
 
+        return;
+      })
+      .catch(err => console.error(err));
+      
 
               //console.log(pic)
              // console.log(JSON.stringify({"data":pic.replace("data:image/png;base64,","")}))            

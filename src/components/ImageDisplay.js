@@ -1,6 +1,6 @@
 import React from 'react'
 import PhotoFaceDetection from './PhotoFaceDetection'
-function ImageDisplay({setOpen,picture,setPictureFormat,setFileName,setLabels,setProbs}) {
+function ImageDisplay({setLoading,setOpen,picture,setPictureFormat,setFileName,setLabels,setProbs}) {
   return (
     <div>
         <PhotoFaceDetection 
@@ -9,6 +9,7 @@ function ImageDisplay({setOpen,picture,setPictureFormat,setFileName,setLabels,se
         setFileName={setFileName} 
         setProbs={setProbs}
         setLabels={setLabels}
+        setLoading={setLoading}
         />
     </div>
   )
