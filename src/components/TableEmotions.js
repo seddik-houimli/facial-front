@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 
 function TableEmotions({loading,open,filename,labels,probs}) {
   return (
-    <div style={{marginTop:'35px' ,color:'blue'}}>
+    <div style={{marginTop:'250px' ,color:'blue',width:'700px'}}>
       {loading ? <div className="circular" >
    <Box >
   <CircularProgress />
@@ -20,7 +20,7 @@ function TableEmotions({loading,open,filename,labels,probs}) {
       </div> : <></>}
       {open ? 
       <TableContainer >
-      <Table sx={{ minWidth: 500 }} aria-label="customized table">
+      <Table sx={{ minWidth: 400,maxWidth: 500 }} aria-label="customized table">
         <TableHead>
           <TableRow>
           {[1,2,3,4,5,6,7,8].map((e,index)=>
