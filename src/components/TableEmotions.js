@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 
 function TableEmotions({loading,open,filename,labels,probs}) {
   return (
-    <div style={{marginTop:'250px' ,color:'blue',width:'700px'}}>
+    <div style={{marginTop:'50px' ,color:'blue',width:'700px'}}>
       {loading ? <div className="circular" >
    <Box >
   <CircularProgress />

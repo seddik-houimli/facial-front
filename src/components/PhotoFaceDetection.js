@@ -200,7 +200,7 @@ const PhotoFaceDetection = ({setLoading,setOpen,Img,setFileName,setLabels,setPro
         method: 'POST',
         headers: {
         'content-type': 'application/json',
-        'X-RapidAPI-Key': 'afde77b6efmsh5f31742ca1faad0p1eede6jsn0a46bf738e5a',
+        'X-RapidAPI-Key': '9450a712b9msh5e4d8ca25fa1597p1a8cefjsn6a6b4e937582',
         'X-RapidAPI-Host': 'hydra-ai.p.rapidapi.com'
       },
       body: `{"image":"${binaryImage}"}`
